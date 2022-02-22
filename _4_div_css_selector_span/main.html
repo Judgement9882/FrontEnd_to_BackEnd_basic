@@ -7,18 +7,59 @@ HTML : 웹페이지 구조, 내용
 CSS : 디자인 (Cascading Style Sheets)
 Javascript : 동적인 활동
 
+4-3. HTML div 태그 사용하기
+: division 구역을 나눔
+
+5-1. HTML 파일안에 <style> 태그를 사용하여 css 스타일 적용하기
+: 어느 div 의 스타일을 바꿀것인지 선택해야함
+
+div#div태그 아이디
+
+id는 unique 함. 
+그럼 같은 작업을 할 때 또 id 불러와서 해야함? No
+divclass 사용
+
+div.divclass -> div클래스가 . 뒤에 있는것과 같은것은 다 적용
+
+style 안에 있는 문법은 css 스타일 문법임. -> 코멘트를 /* */ 으로 적용.
+
+근데 이게 함께있으면 헷갈리니 css로 따로 두자. style 태그안의 내용을 main.css 로 옮김.
+그런뒤에 링크로 디자인을 입력함. link 입력하고 tab
+rel = "__" : 문서와의 관계를 입력함. 
 -->
 
 <html>
     <head>
+        <!--
+        <style>
+            div.divclass{
+                background-color: crimson;
+            }
+            /*div#first{
+                background-color: aqua;
+            }
+            div#second{
+                background-color: blue;
+            }
+            div#third{
+                background-color: coral;
+            }
+            */
+        </style>
+        -->
 
+        <link rel="stylesheet" href="main.css">
     </head>
-    <body>
-        <h1> H1 입니다. </h1>
-
-        <h1> H1 두번째 입니다. </h1>
-
+    <body> 
+        <div class = "divclass" id="first">
+            <h1> H1 입니다. </h1>
+        </div>
+        <div class = "divclass" id="second">
+            <h1> H1 두번째 입니다. </h1>
+        </div>
+        <div class = "divclass" id="third">
         <h1> H1 세번째 입니다. </h1>
+        </div>
     </body>
 
 </html>

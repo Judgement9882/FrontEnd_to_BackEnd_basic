@@ -1,0 +1,41 @@
+<!--
+    6-1. CSS의 width 속성과 display 속성 배우기
+
+    margin, border, padding -> GUI 결정할 때 사용
+-->
+
+
+<html>
+    <head>
+        <style>
+            div#outer{
+                display: inline-block;
+                background-color: blueviolet;
+                margin: 100px; /* 왼쪽위에서 부터 100,100 위치하여 시작*/
+                border: 2px solid red; /* 외곽선 */
+            }
+            div#inner{
+                display: inline-block;
+                background-color: aqua; 
+                margin: 50px; /* 감싸고 있는 outer로 부터 50px 떨어져 시작 (150, 150)*/
+                padding: 100px; /* 내부 공간을 채움 (250, 250) */
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <div id="outer">
+            <div id = "inner">
+                Hello
+
+            </div>
+
+        </div>
+        
+        <hr>
+        <img src="./margin_border_padding_photo.JPG" alt="margin, border, padding 설명 사진"/>
+        <hr>
+    </body>
+</html>

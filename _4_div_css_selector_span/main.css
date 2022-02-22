@@ -1,0 +1,19 @@
+/*div.divclass{
+    background-color: crimson;
+}
+*/
+div#first{
+    background-color: aqua;
+    display: inline-block; /* 한줄로 나오게끔 */
+    width: 500px;
+}
+div#second{
+    background-color: blue;
+    display: inline-block;
+    width: 600px;
+}
+div#third{
+    background-color: coral;
+    display: inline-block;
+    width: 700px;
+}

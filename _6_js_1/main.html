@@ -1,0 +1,53 @@
+<!--
+    6.2 javascript의 문자열을 나타내는 3가지 표현 배우기
+
+    : script 안에 javascript 코드 작성
+-->
+
+<!--
+    7.1 Javascript의 typeof 연산자 배우기
+
+    연결연산자 : '+' 
+    string concatenation operator : 문자열 붙이는 연산자
+    
+
+
+-->
+
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>여기입니다.</h1>
+        <script>
+
+            /* 문자열
+
+            // 1. 콘솔창 출력 -> 크롬 개발자도구 콘솔
+            console.log("이것은 자바스크립트 입니다.");
+            // 2. 작은 따옴표도 가능
+            console.log('이것은 자바스크립트 입니다.');
+            // 3. back-tick, 좌상단, 1번키 좌측 옆에
+            console.log(`이것은 자바스크립트 입니다. 
+            by backtick`);
+            // back-tick의 다른점 : 엔터를 치면
+            // 다른 방식은 \n 이런식으로 해야함 but back-tick은 안해도됨.
+            
+            */
+
+            // 2. typeof : 자료형 이름
+            console.log('hello의 자료형은 ' + typeof("hello")) // string
+            console.log('4의 자료형은 ' + typeof(4)) // number
+            console.log('3.14의 자료형은 ' + typeof(3.14)) // number
+
+            console.log('string concat의 문자열 더하기 숫자 결과 : 123'+5); // 문자열과 숫자이기 때문에 안되는거 아닌가?
+            // 자바스크립트에서는 1235 문자열로 나와줌. but 바람직하지않음
+
+            // 원하는게 진짜 123 + 5 이다?
+            // 문자열을 숫자로 바꿔주는 parseInt(문자열) -> 정수
+            console.log("parseInt의 결과 : " + (parseInt("123") + 5));
+
+        </script>
+    </body>
+</html>
