@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id = 'grade'>
+        <script>   
+            const myArray = [1, 2, 'apple', 'banana', 3.14, true, false, 2];
+            // 16. 있다 없다 찾아보기 -> includes
+
+            console.log("apple이 있냐? " + myArray.includes('apple'));
+            
+            if (myArray.includes('apple') === true){
+                console.log('apple 있다');
+            }
+            else{
+                console.log('apple 없다');
+            }
+
+            // 16. 어디에 있냐 -> indexOf
+            console.log("apple이 어디 있냐? " + myArray.indexOf('apple'));
+
+            // indexOf('apple', fromindx) fromindx 어디서 부터 찾느냐 선택
+            // 없으면 0이 생략된 것. 3부터 찾으면 애플은 2니까 못찾음 -1
+            console.log("apple이 어디 있냐? " + myArray.indexOf('apple', 3));
+            console.log("apple이 어디 있냐? " + myArray.indexOf('apple', 1));
+            console.log("apple이 어디 있냐? " + myArray.indexOf('apple', 0));
+
+            // lastIndexOf('apple', fromIndex) 가장 마지막에 나타나는 요소
+            // 여기서 fromIndex는 반대로 찾기 시작함.
+            // ex 5면 true부터 시작해서 <------- 이쪽으로 감.
+
+            console.log("2가 어디끝에있냐 " + myArray.lastIndexOf(2));
+            console.log("2가 어디끝에있냐 " + myArray.lastIndexOf(2, 5));
+
+            // 17. 퀴즈 
+            // 1) 배열에 포함된 모든 2를 제거하시오
+            while(myArray.indexOf(2) !== -1){
+                myArray.splice(myArray.indexOf(2), 1);
+                console.log(myArray);
+            }
+            
+            // 2) 배열에 포함된 사과는 몇개?
+            let cnt = 0;
+            for(let i = 0 ; i < myArray.length; i++){
+                if (myArray[i] === 'apple') cnt++;
+            }
+            console.log(cnt);
+        </script>
+    </h1>
+</body>
+</html>

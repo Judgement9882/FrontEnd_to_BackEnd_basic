@@ -211,6 +211,31 @@
             myArray.push(value2);
             console.log('after : ' + myArray);
             
+            // 15. splice() 메소드를 사용하여 배열 요소 제거하는 방법
+            
+            const myArray3 = [1, 2, 'apple', 'banana', 3.14, true, false, 2];
+            // 삭제 2
+            // .splice(기준 인덱스, 기준 인덱스로부터 몇개를 삭제)
+            myArray3.splice(1, 1);
+            console.log('after : ' + myArray3); // 인덱스 1인 2를 지움
+            myArray3.splice(1, 2);
+            console.log('after : ' + myArray3); // 인덱스 1인 apple을 지우 뒤에 banana도 지움
+            myArray3.splice(1);
+            console.log('after : ' + myArray3); // 인덱스 1포함 다 지움 0번째만 남음
+
+            // 삭제 후 추가
+            myArray3.splice(0, 1, 'orange'); 
+            console.log('after : ' + myArray3); // 삭제하고 추가함
+
+            // 여러개 추가
+            myArray3.splice(0, 1, 'orange', 'melon'); 
+            console.log('after : ' + myArray3); // 삭제하고 2개 추가함
+
+            // 단순 추가도 가능
+            myArray3.splice(1, 0, 'apple') // 0으로 하면 안지움. 1번인덱스 앞에 넣음
+            console.log('after : ' + myArray3); // 여러개도 가능. 0번 인덱스로 하면 unshift와 동일효과
+
+            // push pop 은 myArray3.length 이용
         </script>
     </body>
 </html>
