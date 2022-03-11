@@ -15,9 +15,74 @@
     <body>
         <h1> 숫자를 입력하세요. </h1>
         <div id = '입력'>
-            <input type="text">
-            <button>제출</button>
-            <button>색 바꾸기</button>
+            <input id = 'input_num' type="text">
+            <button id="btn_submit">제출</button>
+            <button id="btn_chgClr">색 바꾸기</button>
         </div>
+        <h1 id = 'result'></h1> <!-- 공백 -->
+        <script>
+            // 컬러는 red -> green -> blue 순으로 순환
+
+            const clr_array = ['red', 'green', 'blue'];
+            let clr_idx = 0;
+
+            const w_btn_submit = document.querySelector('#btn_submit');
+            const w_btn_chgClr = document.querySelector('#btn_chgClr');
+            const w_input = document.querySelector('#input_num');
+            const w_h1_result = document.querySelector('#result');
+
+            // 함수를 만들어 짝 홀 구분해보기
+            // n이 짝수면 true, 홀수면 false
+            const isEven = (n) => {
+                if (n % 2 == 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            };
+
+            // submit 버튼을 누르면
+            // () : 받는게없음 {} : 처리할 것 적기
+            w_btn_submit.addEventListener('click', ()=>{
+                console.log('버튼 눌렀음!!');
+                
+                // 입력한 내용을 가져오자
+                const temp = parseInt(w_input.value); // 문자여서 숫자로바꿈
+                // NaN : Not a number == NULL
+                
+                if (!temp) { // NaN
+                    // 경고메세지 설정
+                    w_h1_result.textContent = "똑바로 숫자를 입력하세요."
+                }
+                else{
+                    let decision = '홀수';
+
+                    // 짝수
+                    if (isEven(temp)){
+                        decision = '짝수';
+                    }
+                    w_h1_result.textContent = temp + '는 ' + decision + '입니다.';
+                }
+                // w_h1_result.textContent = temp-''; 
+
+                // 제출누르는 순간 창을 비워버리기
+                w_input.value = '';
+
+                // 제출누르는 순간 입력할 수 있도록 커서를 갖다놓기
+                w_input.focus();
+
+            }); 
+
+            // 색 바꾸기 버튼을 누를경우 
+            w_btn_chgClr.addEventListener('click', () => {
+                clr_idx = (clr_idx+1) % clr_array.length;
+                console.log('현재 색은 : ' + clr_array[clr_idx]);
+
+                // 색은 style.color
+                w_h1_result.style.color = clr_array[clr_idx];
+            });
+
+        </script>
     </body>
 </html>

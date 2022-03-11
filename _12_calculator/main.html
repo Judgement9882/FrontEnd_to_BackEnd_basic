@@ -1,0 +1,165 @@
+<html>
+    <head>
+        <style>
+            /* button 크기를 동일하게 하기위해 */
+            button{ 
+                width : 50px;
+                height : 50px;
+                margin : 5px; /* 사이 간격 */
+            }
+
+            /* operator라는 아이디를 쓰는 것*/
+            #operator{
+                width : 50px;
+                height : 50px;
+                margin : 5px;
+                text-align:center; /* 정렬 */
+            }
+
+            /* result라는 아이디를 쓰는 것*/
+            #result{
+                width : 180px;
+                height : 50px;
+                margin : 5px;
+                text-align:right; /* 정렬 */
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 행단위로 묶을때는 div 사용 -->
+        <!-- 그냥 버튼을 만들면 크기가 각각 다름. CSS를 통해 스타일을 맞춰주자-->
+
+        <div>
+            <!-- 그냥 input을 만들면 가로로 쭉 길게 나옴-->
+            <!-- 읽기만 하면 됨 read only-->
+            <input readonly id = 'operator'> 
+            <input readonly id = 'result' type="number">
+        </div>
+
+        <div>
+            <button id = 'num_7'>7</button>
+            <button id = 'num_8'>8</button>
+            <button id = 'num_9'>9</button>
+            <button id = 'op_plus'>+</button>
+        </div>
+        
+        <div>
+            <button id = 'num_4'>4</button>
+            <button id = 'num_5'>5</button>
+            <button id = 'num_6'>6</button>
+            <button id = 'op_sub'>-</button>
+        </div>
+
+        <div>
+            <button id = 'num_1'>1</button>
+            <button id = 'num_2'>2</button>
+            <button id = 'num_3'>3</button>
+            <button id = 'op_mul'>*</button>
+        </div>
+
+        <div>
+            <button id = 'op_clr'>clr</button>
+            <button id = 'num_0'>0</button>
+            <button id = 'op_calc'>=</button>
+            <button id = 'op_div'>/</button>
+        </div>
+
+        <script>
+            // 연산을 할 앞문자와 뒷문자를 저장하는 변수
+            let num_front = ''; // 문자로 저장하여 concatenate 후 parseInt로 숫자로 변환
+            let num_back = ''; 
+            let op_input = null; // 연산자 저장 변수
+
+            // higher-order function
+            const numFunc = (n) => { // n = '0'...'9'
+                // 함수를 만들어서 return 한다. 진정한 high-order function
+                return ()=>{
+                    if (op_input === null){ // 아무것도 입력이 안됐을때는
+                        num_front = num_front + n; // 문자열로 합치기
+                        cp_input_num.value = num_front; // result 창에 띄우기
+                    }
+                    else{ // 연산자가 입력이 된 이후
+                        num_back = num_back + n;
+                        cp_input_num.value = num_back;
+                    }
+                };
+            };
+
+            // numFunc 의 인자 n 같은 경우는 return 안에서의 함수에서 closure로 작동
+            // 자기가 받아온걸 그냥 사용할 수 있게 해줌.
+            // 따라서 return 안의 함수는 n 까지 범위가 확장될 수 있음.
+            // closure의 개념 : return안의 함수와 인자 n
+
+
+            // const opFunc = (op) => { // op = '+', '-', '*', '/'
+            //     // op_input -> 입력된 연산자를 저장하는 변수를 변경하자.
+            //     return ()=>{
+            //     op_input = op;
+            //     cp_operator.value = op;
+            //     }
+            // };
+
+            // 위의 함수를 더 간단하게 만들 수 있음.
+            const opFunc = (op) => () => {
+                switch(op){
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                        op_input = op;
+                        cp_operator.value = op;
+                        break;
+                    case '=':
+                        switch(op_input) {
+                            case '+':
+                                cp_input_num.value = parseInt(num_front) + parseInt(num_back);
+                                break;
+                            case '-':
+                                cp_input_num.value = parseInt(num_front) - parseInt(num_back);
+                                break;
+                            case '*':
+                                cp_input_num.value = parseInt(num_front) * parseInt(num_back);
+                                break;
+                            case '/':
+                                cp_input_num.value = parseInt(num_front) / parseInt(num_back);
+                                break;
+                        }
+                        break;
+                    case 'clr':
+                        num_front = '';
+                        num_back = '';
+                        op_input = null;
+                        cp_input_num.value ='';
+                        cp_operator.value = '';
+                        break;
+
+                }
+                
+            }
+
+            const cp_operator = document.querySelector('#operator');
+            const cp_input_num = document.querySelector('#result');
+
+
+
+            // addEventListener도 결국엔 high-order function 임 (argument로 function을 넣음)
+            document.querySelector('#num_0').addEventListener('click', numFunc('0'));
+            document.querySelector('#num_1').addEventListener('click', numFunc('1'));
+            document.querySelector('#num_2').addEventListener('click', numFunc('2'));
+            document.querySelector('#num_3').addEventListener('click', numFunc('3'));
+            document.querySelector('#num_4').addEventListener('click', numFunc('4'));
+            document.querySelector('#num_5').addEventListener('click', numFunc('5'));
+            document.querySelector('#num_6').addEventListener('click', numFunc('6'));
+            document.querySelector('#num_7').addEventListener('click', numFunc('7'));
+            document.querySelector('#num_8').addEventListener('click', numFunc('8'));
+            document.querySelector('#num_9').addEventListener('click', numFunc('9'));
+
+            document.querySelector('#op_plus').addEventListener('click', opFunc('+'))
+            document.querySelector('#op_sub').addEventListener('click', opFunc('-'));
+            document.querySelector('#op_mul').addEventListener('click', opFunc('*'));
+            document.querySelector('#op_div').addEventListener('click', opFunc('/'));
+            document.querySelector('#op_calc').addEventListener('click', opFunc('='));
+            document.querySelector('#op_clr').addEventListener('click', opFunc('clr'));
+        </script>
+    </body>
+</html>
