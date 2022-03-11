@@ -1,0 +1,64 @@
+<!-- 36. 자바스크립트의 배열과 fill, map-->
+
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+            // 배열
+            //const a = Array(10);
+            // 1. fill
+            // a.fill(0); // fill 은 배열의 모든 값을 인자로 초기화
+            // console.log(a);
+
+            // 처음부터 fill 사용 가능
+            const a = Array(10).fill(10);
+            console.log(a);
+
+            // 2. map : mapping 한다. 함수개념 f(a) -> b, f(1) -> 2
+            // 요소.map( () => {} )
+            // _elem 은 a의 원소의 값, _idx 는 그 원소의 순서
+            b = a.map( (_elem, _idx) => {return _elem + _idx+1} );
+            console.log(b);
+
+            // 3. sort
+            const c = [45, 33, 22, 11, 7, 99];
+            // sort( (x, y 아무 문자나 가능) => {여기서 규칙 정리} ) 
+            c.sort((x, y) => {
+                if (x < y) {
+                    return -1; // negetive
+                }
+                else if (x > y){
+                    return 1; // positive
+                }
+                else{
+                    return 0; // zero1
+                }
+            });
+            console.log(c);
+
+            // sort는 원본을 정렬함.
+            // 4. 복사본 만들어서 sort -> slice()
+            // [1, 2, 3] 
+            // slice(1) -> [2, 3]
+            // slice(0, 1) -> [1] 0번째에서 1개 가져옴
+            // slice() -> 전체복사
+
+            d = c.slice(0, 2);
+            console.log(d);
+            e = c.slice();
+            console.log(e);
+
+            // sort 간략화
+            const sc = c.slice().sort( (x,y) => x-y);
+            // a<b 음수 a==b 0 a>b 양수
+            console.log(sc);
+            const cs = c.slice().sort( (x,y) => y-x);            
+            console.log(cs);
+
+            
+
+            </script>
+    </body>
+</html>
