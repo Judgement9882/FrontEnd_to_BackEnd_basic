@@ -1,4 +1,4 @@
-# Frontend_to_Backend_basic
+# FrontEnd_to_BackEnd_basic
 
 - HTML/CSS/JS/NODEJS/MYSQL 에 대해 공부합니다.
 
