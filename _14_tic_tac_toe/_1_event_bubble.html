@@ -1,0 +1,93 @@
+<!--
+    42. Event 처리
+    간단한 체크박스 버튼 만들기
+    체크박스를 누르면 콘송창에 출력되는 프로그램
+-->
+
+<html>
+    <head>
+
+    </head>
+    <body>
+        <!-- 43. div 에도 이벤트 걸기 가능-->
+        <div id = 'outside'><!-- 0번째 -->
+            <div><!-- 1번째 -->
+                <input type="checkbox", id = 'i1'>
+                <label for="">운동</label>
+            </div>
+
+            <div><!-- 2번째 -->
+                <input type="checkbox", id = 'i2'>
+                <label for="">쇼핑</label>
+            </div>
+        </div>
+        <script>
+
+            // 45. event delegation 이벤트 위임
+            // : 최상단 div가 다 처리해주는 방법
+            const cp_div = document.querySelector('#outside');
+            cp_div.addEventListener('click', (event) => {
+                console.log('cp_div 이벤트 발생 : ---> ', event.target.tagName); 
+
+
+                // 쉽게 이벤트 리스너를 한번에 걸 수 있음
+                if (event.target.id === 'i1'){
+                    console.log('운동');
+                }
+                else if (event.target.id === 'i2'){
+                    console.log('쇼핑');
+                }
+                // div 안뜨고 input 뜸
+                // 최상단에 eventlistener(parent)를 걸어도 child 에서 나오는 신호 받을 수 있음
+            });
+            // // querySelectorAll : 있는 것 모두 다 잡음
+            // // 배열로 저장해서 forEach 문을 사용하면 쉽게 사용 가능
+            // const inputs = document.querySelectorAll('input');
+
+            // // input을 두개로 받음. input, index
+            // inputs.forEach( (_inp, _idx) => {
+            //     _inp.addEventListener('click', (event)=>{ // 클릭이 되면 arrow 함수 실행
+            //         console.log(_idx, '번째 input click event 발생');
+                    
+            //         // 44. stopPropagation 
+            //         // 이벤트가 흘러가는것 Propagation
+            //         // phase를 거쳐 가는데 그걸 stop 시켜버리는것
+            //         event.stopPropagation;
+            //         event.stopImmediatePropagation; // 아래있는 두번째 bubble phase도 안되게함
+            
+            //     }); // bubble phase 수행되는 listener
+
+            //     // capture phase에 수행되는 listener
+                
+            //     _inp.addEventListener('click', ()=>{ // 클릭이 되면 arrow 함수 실행
+            //         console.log(_idx, '번째 input click event 발생');
+            //     }, true); // 뒤에 true라고 지정하면 capture phase에 수행되게함.
+
+            // });
+            // // 복사해도 독립된 개체로 작동함
+            // inputs.forEach( (_inp, _idx) => {
+            //     _inp.addEventListener('click', ()=>{ // 클릭이 되면 arrow 함수 실행
+            //         console.log(_idx, '번째 두번째 bubble phase event 발생');
+            //     }); // false 생략 ->  bubble phase에서 수행되는 listener 
+            // });
+
+            // // div 에 이벤트 걸기
+            // const divs = document.querySelectorAll('div');
+            // divs.forEach( (_dv, _idx) => {
+            //     _dv.addEventListener('click', () => {
+            //         console.log(_idx+ ' 번째 div에 대한 이벤트 발생') 
+            //     }); // bubble phase
+
+            //     _dv.addEventListener('click', () => {
+            //         console.log(_idx+ ' 번째 capture phase div에 대한 이벤트 발생') 
+            //     }, true); // capture phase
+            // });
+            // // 2번, 0번 or 1번, 0번 순으로 안쪽부터 나옴
+            // // --> capture phase : 이벤트 위치로 이동
+            // // --> target phase : 타겟에 도착
+            // // ==> bubble phase : 다시 원래대로 돌아가면서 위치를 알려줌 ( 이벤트 리스너 호출 )
+
+
+        </script>
+    </body>
+</html>

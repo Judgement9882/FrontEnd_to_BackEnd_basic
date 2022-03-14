@@ -1,0 +1,144 @@
+<!-- 같은 심볼을 연달아 두면 이기는 게임 tic tac toe-->
+
+<html>
+    <head>
+        <style>
+
+            table {/*경계선을 통합시킴*/
+                border-collapse: collapse; 
+            }
+
+            td{
+                border : 3px solid black;
+                width: 50px;
+                height: 50px;
+                text-align : center;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            const cp_table = document.createElement('table');
+            const cp_result = document.createElement('div');
+            let mark = 'O';
+            let cnt = 0;
+
+            // 틱택토에서 클릭을 했을때 이겼는지 아는 방법 :
+            // 클릭했을때의 그 위치를 포함했을때 이기는지 확인하면됨
+            const checkWin = (_td) => { //_td 는 이벤트 리스너에서 넘어옴
+
+                // td의 parentNode : tr
+                // tr은 테이블 안에서 행의 인덱스를 알고있음
+                let rowIndex = _td.parentNode.rowIndex;
+
+                // td는 자신의 행을 알고있음 -> cellIndex
+                let colIndex = _td.cellIndex;
+
+                // 이제 위치를 알고있음
+
+                // 같은 행에서 열을 바꿔가며 체크
+                if (board[rowIndex][0].textContent === mark &&
+                    board[rowIndex][1].textContent === mark &&
+                    board[rowIndex][2].textContent === mark){
+                        return true;
+                    }
+
+                // 같은 열에서 행을 바꿔가며 체크
+                if (board[0][colIndex].textContent === mark &&
+                    board[1][colIndex].textContent === mark &&
+                    board[2][colIndex].textContent === mark){
+                        return true;
+                    }
+
+                // 대각선 검사
+                if (board[0][0].textContent === mark && 
+                    board[1][1].textContent === mark && 
+                    board[2][2].textContent === mark){
+                        return true;
+                    }
+
+                // 반대방향 대각선
+                if (board[2][0].textContent === mark && 
+                    board[1][1].textContent === mark && 
+                    board[0][2].textContent === mark){
+                        return true;
+                    }
+
+                return false;
+            };
+
+            const table_event_listener = () => {
+                const which_td = event.target.closest('td'); // closest 가장 가까운 것을 리턴하는 함수
+
+                // 놓여져 있으면 클릭해서 바뀌면 안됨
+                if (which_td.textContent !== ''){
+                    return; // 바로 리턴 
+                }
+
+                which_td.textContent = mark; // 클릭하면 O 가 생김
+                cnt += 1;
+                // 해당자리가 승리자리인지 알아야함
+                if (checkWin(which_td)){
+                    cp_result.textContent = mark + '가 이겼습니다.'
+                    // 끝났으므로 더이상 작동하면 안됨
+                    cp_table.removeEventListener('click', table_event_listener);
+                    return;
+                };
+
+                // 무승부일때 (모든칸이 채워졌을때) 1. 개수 세어보기
+                if (cnt === 9){
+                    cp_result.textContent = '무승부 입니다.'
+                    cp_table.removeEventListener('click', table_event_listener);
+                }
+
+                // 2. js 방식 
+                // flat() 2차원 배열을 1차원 배열로 바꿔줌
+                // 단점 : overhead가 너무 큼. 배열을 1차원으로 바꿔야함..
+                // if (board.flat().every( (_td) => _td.textContent !== '') === true){
+                //     cp_result.textContent = '무승부 입니다.';
+                //     cp_table.removeEventListener('click', table_event_listener);
+                // }
+
+                if (mark == 'O'){
+                    mark = 'X';
+                }else{
+                    mark = 'O';
+                }
+            };
+
+            // td들을 저장하기 위한 별도의 2차원 배열
+            const board = [];
+
+            for (let i = 0 ; i < 3; i++){ // tr 3개 만들기
+                const cp_tr = document.createElement('tr');
+                // board의 행
+                const t_row = []
+
+                for (let j = 0 ; j < 3 ; j++){ // td 3개 만들기
+                    const cp_td = document.createElement('td');
+                    cp_tr.append(cp_td);
+                    t_row.push(cp_td);
+                }
+                board.push(t_row);
+                cp_table.append(cp_tr);
+            }
+
+            document.body.append(cp_table);
+            document.body.append(cp_result);
+            
+            // 클릭 이벤트
+            cp_table.addEventListener('click', table_event_listener);
+            
+
+        </script>
+
+        <!-- 수동방법
+        <table>
+            <tr><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td></tr>
+        </table>
+        <div id = 'result'>결과표시</div>
+        -->
+    </body>
+</html>

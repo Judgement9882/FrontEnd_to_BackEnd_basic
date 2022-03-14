@@ -5,6 +5,10 @@
 
     </head>
     <body>
+        <div>
+            <h1 id = "count_down"></h1>
+        </div>
+
         <script>
             // 배열
             //const a = Array(10);
@@ -57,7 +61,92 @@
             const cs = c.slice().sort( (x,y) => y-x);            
             console.log(cs);
 
+            // 5. 문자열 정렬
+            const g = ['banana', 'apple', 'orange']
+            const h = ['호박', '수박', '사과', 'banana', 'apple', 'orange']
+            // const sg = g.slice().sort((a,b) => {
+            //     if (a < b){
+            //         return -1;
+            //     }
+            //     else if (a>b){
+            //         return 1;
+            //     }
+            //     else{
+            //         return 0;
+            //     }
+            // })
+
+            // sort 조건 짧게 만들기 
+            // a<b 이면 -1 , a>b이면 1, a==b면 0
+            // const sg = g.slice().sort((a,b)=>{return (a<b)?-1:(a>b)?1:0})
+            // return 없이 쓰는 방법 => {} 를 지움
+            // const sg = g.slice().sort((a,b)=>(a<b)?-1:(a>b)?1:0);
+            const sh = h.slice().sort((a,b)=>(a<b)?-1:(a>b)?1:0);
+
+            // 사실 위 방법보다 정렬을 할 때는 이 방법을 더 선호함
+            const sg = g.slice().sort((a,b)=>a.localeCompare(b));
+
+
+            console.log(g);
+            console.log(sg);
+            console.log(h);
+            console.log(sh); // 영어가 먼저 나옴
+
+
+            // _40_localeCompare
+            // locale 지역
+            // compare 비교
+            // 지역마다 문자가 다를수도 있음 a, a'
+            // 이거를 같게두고 쓸 수 있게끔 도와줌.
+
+            // 대소문자 구별 할지 말지를 결정할 수 있음
+            // 'sensitivity' : 'base' (key-value 조합)
+            // base로 지정하면 대소문자 구별 안함.
+
+            // 사용자의 지역에 맞춰서 정렬함.
+            // 한국에서는 한국말이 먼저 나옴
             
+            const i = ['abc', 'Abc', 'zac', 'Zac', '포도'];
+            const si1 = i.slice().sort((a,b) => (a<b) ? -1 : (a>b) ? 1 : 0);
+            const si2 = i.slice().sort((a,b) => a.localeCompare(b, {'sensitivity':'base'}));
+
+            console.log('i : ' + i);
+            console.log('si1 : ' + si1);
+            console.log('si2 : ' + si2);
+
+
+            // _41_setTimeout_setInterval
+
+            // setTimeout(실행할 함수, 시간 ms단위) : 해당 시간 이후 함수 실행
+            // const hello = () => {console.log('안녕')};
+            // setTimeout(hello, 3000);
+            // setTimeout(hello(), 3000); 는 오류남 
+            // 함수자리지 함수를 호출하면 안됨. undefined 를 함수로 넣는거임.
+
+            setTimeout(()=>{console.log('hello')}, 1000);
+
+            // setInterval(실행할 함수, 시간 ms단위) : 시간 마다 함수 실행
+            const _id = setInterval(()=>{console.log('잘가')}, 500);
+            // clearInterval 없으면 끝날때까지 실행됨
+            // 어떤것을 종료할지 선택해야함. setInterval 은 id를 주므로 해당 id clear해야함
+            setTimeout(() => {
+                clearInterval(_id);
+                console.log("clear interval 호출되었음");
+            }, 5000);
+            // 5초후에 clearInterval을 눌러서 다시 실행 안되게..
+
+            // 간단하게 웹페이지에 카운트다운 만들어보기.
+            // body에 div h1 countdown 만들기
+            let timer = 10;
+            const t_id = setInterval(()=>{
+                const cp_h1 = document.querySelector('#count_down');
+                cp_h1.textContent = timer;
+                timer = timer - 1;
+                if (timer < 0){
+                    clearInterval(_id);
+                    cp_h1.textContent = 'Done good';
+                }
+            }, 500);
 
             </script>
     </body>
