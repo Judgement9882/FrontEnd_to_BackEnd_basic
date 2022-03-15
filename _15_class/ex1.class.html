@@ -1,0 +1,90 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+            // class -> create object
+
+            // 'use strict' => 문법 꼼꼼하게 하라.
+            'use strict'
+            // y = 20; // use strict로 안쓴다고 경고알려줌
+
+            // 클래스 이름 대문자 시작 -> 관습
+            class Person{
+                // constructor를 사용하여 object를 찍어냄
+                constructor(_name, _age){
+                    // this. => 내부 공간 , name, age => 외부 인자
+                    this.name = _name;
+                    this.age = _age;
+                }
+
+                // 새로운 attribute city를 만들어냄
+                add_city_info(_city){
+                    this.city = _city;
+                }
+
+
+                show_info(){
+                    console.log(`${this.name} is ${this.age} years old`);
+                    console.log(`He(she) lives in ${this.city}`);
+                }
+
+                is_order_than(value){
+                    if (this.age > value) return true;
+                    else return false;
+                }
+            }
+            
+            // Person하고 같은 내용이 있다? -> 복사붙여넣기? -> 무식
+            // 상속을 이용하자 inherit
+            // 사용법 : extends 부모 클래스
+            // JS에서는 하나의 부모로만 상속받을 수 있음
+            class Student extends Person{
+                constructor(_name, _age, _dream){
+                    // name하고 age는 Person에 있으니 갖다쓰면됨
+                    // this 대신 super 사용
+                    super(_name, _age);
+                    this.dream = _dream;
+                }
+
+                show_info(){
+
+                    // show_info 상속받은걸 그대로 사용하면서
+                    super.show_info();
+
+                    // 새로 기능 추가
+                    console.log(`His(Her) dream is ${this.dream}`);
+                }
+            }
+
+            const p = new Person('jim', 20);
+            p.add_city_info('seoul');
+            const q = new Person('jane', 21);
+            q.add_city_info('busan');
+
+            console.log(p)
+            console.log(q)
+            
+            p.show_info();
+            console.log(`${p.name} is order than 19?`);
+            console.log(p.is_order_than(19));
+
+            q.show_info();
+            console.log(`${q.name} is order than 19?`);
+            console.log(q.is_order_than(19));            
+
+            const s = new Student('Tom', 19, 'pilot');
+            // 상속을 받았기 때문에 사용할 수 있음
+            s.add_city_info('incheon');
+            s.show_info();
+            // show info에서는 dream을 못보여줌=> 만들어내자
+            // super. 이용해서 이전거 가져오고 새로 기능 추가
+
+            // method over riding
+            // 부모, 자식 똑같은 메소드가 있는데 자식꺼부터 쓰는 개념
+
+
+        </script>
+    </body>
+</html>

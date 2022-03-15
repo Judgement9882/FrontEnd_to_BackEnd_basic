@@ -1,0 +1,98 @@
+<!-- Copy (복사)
+
+1. Shallow  Copy
+2. Deep     Copy
+
+숫자, 문자 (primitive data) 는 참조x 새로운 공간을 만들어 복사
+
+object는 copy가 아니라 reference 로 진행.
+기존에 있는 object를 참조해서 사용
+
+
+
+Reference (참조) -->
+
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+            // object : key, value
+            const a = {'name' : 'alice', 'age' : 20};
+            const b = a;
+
+            // const로 b를 만들어도 object는 접근해서 수정 가능
+            // b가 가리키는 object는 바꿀 수 없음 b=c 안됨
+            b.name = 'tom' // a의 name도 tom으로 바뀜
+            console.log(a)
+            console.log(b)
+
+            // 배열
+            const c = [1, 2, 3]
+            const d = c;
+
+            d[1] = 200;
+            console.log(c); // 배열도 마찬가지
+            console.log(d);
+            c.forEach((v, idx)=>{
+                console.log(`${idx} : ${v}`);
+            });
+                
+            // js의 배열 복사
+            const e = [1, 2, 3];
+            const f = [...e];
+
+            f[1] = 200;
+            console.log(e)
+            console.log(f)
+
+            // js의 객체 복사
+            const g = {
+                name : 'john',
+                age : 20,
+                address : {
+                    city: 'incheon',
+                    street: 10
+                }
+            }
+
+            console.log('g : ', g.name, g.age, g.address.city, g.address.street)
+
+            // 복사방법 : Object.assign({빈객체임 여기다가 복사한다는 의미}, 복사하고픈 객체)
+            const h = Object.assign({}, g)
+            h.name='alice';
+            h.address.city = 'seoul';
+            console.log('g : ', g.name, g.age, g.address.city, g.address.street) 
+            console.log('after : ', h.name, h.age, h.address.city, h.address.street);
+            // shallow copy : 얕은 복사
+            // city같은경우 object assign을 안했기 때문에 reference로 접근
+
+            // JSON -> js 간 객체 전달할 때 객체 전달하면 무거우니
+            // 문자열로 변환해서 보낼때 씀
+            // JSON.stringify -> 다른 컴퓨터로 전송할때 문자열로 바꿔줌 (김밥을 분리하고 재료를 보냄)
+            // JSON.parse -> str로 쭉 들어온 정보를 객체로 바꿔줌 (재료를 받고 김밥을 말아버림)
+            const i = JSON.parse(JSON.stringify(g)); // ==> Deep copy
+            i.address.city = 'jeju';
+            console.log(i)
+
+            // 54. 배열 deepcopy 방법
+            const j = ['alice', 20, {city:'incheon', street : 10}];
+            console.log('before : ', j[0], j[1], j[2].city, j[2].street);
+
+            // const k = [...j]; // => shallow copy
+            const k = JSON.parse(JSON.stringify(j)); // deep copy
+
+            k[0] = 'john';
+            k[1] = 20000
+            k[2].city = 'seoul';
+            k[2].street = 555;
+
+            console.log('after : ', j[0], j[1], j[2].city, j[2].street);
+            console.log('after : ', k[0], k[1], k[2].city, k[2].street);
+            
+            
+
+        </script>
+    </body>
+</html>
