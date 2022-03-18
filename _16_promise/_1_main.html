@@ -1,10 +1,14 @@
 <html>
     <head>
         <!-- 자바스크립트와 html 섞이면 어지러우니 따로 빼냄-->
-        <!-- defer : 일반적으로 html, css, 등등 -->
-        <script src="promise.js" defer>
+        <!-- 
+            HTML 서버에서 보내면 클라이언트에서 렌더링 진행하면 보임
+            근데 html, js 동시에 다운로드 하는데 js 먼저 다 됐다고 엉망인 html에 가서 작동하면 안됨
+            defer : 연기하다, 뒤로미루다
             
-        </script>
+            defer 옵션을 추가하면 js는 html이 다 다운로드 됐을 때 run
+        -->
+        <script src="promise.js" defer></script>
     </head>
     <body>
         <h1> hello </h1>
