@@ -12,7 +12,7 @@ const app = express();
 
 app.get('/', (req, res)=>{
     // res.sendStatus(200) // 200 : OK
-    // res.sendStatus(400) // 400 : Bad Request 문법에 안맞음
+    res.sendStatus(400) // 400 : Bad Request 문법에 안맞음
     // 403 : forbidden : 외부 공개 x
     // 404 : not found : 자료 없음
     // 500 : internal server error : 요청잘받아서 처리하다가 서버문제생김
